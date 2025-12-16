@@ -565,29 +565,193 @@ const REQUIRED_KEYS = ["VGA","CPU","MAINBOARD","RAM","SSD","PSU","CASE","COOLING
 
 const PRODUCTS = [
   // ================= VGA =================
+
   {
-    id:"vga-1", category:"VGA", brand:"GALAX",
-    name:"RTX 5060 EX WHITE 8GB GDDR7",
-    price:12990,
-    spec:{ gpuTier:2, vram:8, length_mm:305, psu_w_min:550, powerPins:"1x 8pin" }
+    id:"vga-leadtek-pro-4500",
+    category:"VGA",
+    subCategory:"NV-PRO",
+    brand:"LEADTEK",
+    productCode:"810152850213",
+    name:"LEADTEK NVIDIA RTX PRO 4500 BLACKWELL 32GB",
+    model:"900-5G147-2550-000",
+    price:0,
+    spec:{ segment:"Workstation" }
   },
   {
-    id:"vga-2", category:"VGA", brand:"INNO3D",
-    name:"RTX 5060 Ti X3 OC 8GB GDDR7",
-    price:15990,
-    spec:{ gpuTier:3, vram:8, length_mm:310, psu_w_min:650, powerPins:"1x 8pin" }
+    id:"vga-galax-5060",
+    category:"VGA",
+    subCategory:"NV-5060",
+    brand:"GALAX",
+    productCode:"4895147161198",
+    name:"VGA GALAX RTX 5060 1-CLICK OC V2 8GB GDDR7 128BIT",
+    model:"56NSN8MDDXBO",
+    price:0,
+    spec:{ segment:"Gaming" }
   },
   {
-    id:"vga-3", category:"VGA", brand:"SAPPHIRE",
-    name:"PURE AMD Radeon RX 9060 XT Gaming OC 16GB",
-    price:17990,
-    spec:{ gpuTier:3, vram:16, length_mm:320, psu_w_min:650, powerPins:"2x 8pin" }
+    id:"vga-galax-5050",
+    category:"VGA",
+    subCategory:"NV-5050",
+    brand:"GALAX",
+    productCode:"4895147161235",
+    name:"VGA GALAX RTX 5050 1-CLICK OC V2 8GB GDDR6 128BIT",
+    model:"55NSL8MHDXRE",
+    price:0,
+    spec:{ segment:"Gaming" }
   },
   {
-    id:"vga-4", category:"VGA", brand:"MSI",
-    name:"RTX 4070 Ventus 2X 12GB",
-    price:21990,
-    spec:{ gpuTier:4, vram:12, length_mm:308, psu_w_min:650, powerPins:"1x 16pin" }
+    id:"vga-inno3d-5070",
+    category:"VGA",
+    subCategory:"NV-5070",
+    brand:"INNO3D",
+    productCode:"8886307700308",
+    name:"VGA INNO3D RTX 5070 ICHILL X3 12GB GDDR7",
+    model:"C50703-12D7X-195065H",
+    price:0,
+    spec:{ segment:"Gaming" }
+  },
+  {
+    id:"vga-asus-5080",
+    category:"VGA",
+    subCategory:"NV-5080",
+    brand:"ASUS",
+    productCode:"4711636112048",
+    name:"VGA ASUS ROG ASTRAL RTX 5080 O16G WHITE",
+    model:"90YV0LV4-M0NA00",
+    price:0,
+    spec:{ segment:"Enthusiast" }
+  },
+  {
+    id:"vga-leadtek-pro-2000",
+    category:"VGA",
+    subCategory:"NV-PRO",
+    brand:"LEADTEK",
+    productCode:"810152850251",
+    name:"LEADTEK NVIDIA RTX PRO 2000 BLACKWELL 16GB",
+    model:"900-5G195-2551-000",
+    price:0,
+    spec:{ segment:"Workstation" }
+  },
+  {
+    id:"vga-leadtek-pro-4000",
+    category:"VGA",
+    subCategory:"NV-PRO",
+    brand:"LEADTEK",
+    productCode:"810152850244",
+    name:"LEADTEK NVIDIA RTX PRO 4000 BLACKWELL 24GB",
+    model:"900-5G147-2570-000",
+    price:0,
+    spec:{ segment:"Workstation" }
+  },
+  {
+    id:"vga-leadtek-pro-5000",
+    category:"VGA",
+    subCategory:"NV-PRO",
+    brand:"LEADTEK",
+    productCode:"810152850237",
+    name:"LEADTEK NVIDIA RTX PRO 5000 BLACKWELL 48GB",
+    model:"900-5G153-2550-000",
+    price:0,
+    spec:{ segment:"Workstation" }
+  },
+  {
+    id:"vga-inno3d-5090",
+    category:"VGA",
+    subCategory:"NV-5090",
+    brand:"INNO3D",
+    productCode:"8886307700117",
+    name:"VGA INNO3D RTX 5090 ICHILL X3 32GB GDDR7",
+    model:"C50903-32D7X-175967H",
+    price:0,
+    spec:{ segment:"Enthusiast" }
+  },
+  {
+    id:"vga-asus-5060",
+    category:"VGA",
+    subCategory:"NV-5060",
+    brand:"ASUS",
+    productCode:"4711636196963",
+    name:"VGA ASUS DUAL RTX 5060 O8G WHITE",
+    model:"90YV0N15-M0NA00",
+    price:0,
+    spec:{ segment:"Gaming" }
+  },
+  {
+    id:"vga-galax-5070ti-white",
+    category:"VGA",
+    subCategory:"NV-5070TI",
+    brand:"GALAX",
+    productCode:"4895147160481",
+    name:"VGA GALAX RTX 5070 TI 1-CLICK OC WHITE 16GB GDDR7",
+    model:"57IZN6MDDNWH",
+    price:0,
+    spec:{ segment:"Enthusiast" }
+  },
+  {
+    id:"vga-galax-3050",
+    category:"VGA",
+    subCategory:"NV-3050",
+    brand:"GALAX",
+    productCode:"4895147158129",
+    name:"VGA GALAX RTX 3050 6GB EX WHITE GDDR6",
+    model:"35NRLDHPAZTE",
+    price:0,
+    spec:{ segment:"Entry" }
+  },
+  {
+    id:"vga-msi-5050",
+    category:"VGA",
+    subCategory:"NV-5050",
+    brand:"MSI",
+    productCode:"4711377379960",
+    name:"VGA MSI RTX 5050 8G SHADOW 2X OC",
+    model:"912-V538-008",
+    price:0,
+    spec:{ segment:"Gaming" }
+  },
+  {
+    id:"vga-galax-5070ti-2x",
+    category:"VGA",
+    subCategory:"NV-5070TI",
+    brand:"GALAX",
+    productCode:"4895147160467",
+    name:"VGA GALAX RTX 5070 TI 1-CLICK OC 2X 16GB GDDR7",
+    model:"57IZN6MDDM2X",
+    price:0,
+    spec:{ segment:"Enthusiast" }
+  },
+  {
+    id:"vga-galax-5080-hof",
+    category:"VGA",
+    subCategory:"NV-5080",
+    brand:"GALAX",
+    productCode:"4895147160528",
+    name:"VGA GALAX RTX 5080 HOF GAMING 16GB GDDR7",
+    model:"58NZN6MDDPFG",
+    price:0,
+    spec:{ segment:"Enthusiast" }
+  },
+  {
+    id:"vga-asus-5060ti",
+    category:"VGA",
+    subCategory:"NV-5060TI",
+    brand:"ASUS",
+    productCode:"4711636179973",
+    name:"VGA ASUS DUAL RTX 5060 TI O16G WHITE",
+    model:"90YV0MH6-M0NA00",
+    price:0,
+    spec:{ segment:"Gaming" }
+  },
+  {
+    id:"vga-galax-5070ti-hof",
+    category:"VGA",
+    subCategory:"NV-5070TI",
+    brand:"GALAX",
+    productCode:"4895147160702",
+    name:"VGA GALAX RTX 5070 TI HOF GAMING BLACK 16GB GDDR7",
+    model:"57IZN6MDCXHS",
+    price:0,
+    spec:{ segment:"Enthusiast" }
   },
 
   // ================= CPU (ตลาดทั่วไป) =================
