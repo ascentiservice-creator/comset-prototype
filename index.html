@@ -564,203 +564,149 @@ const CATEGORIES = [
 const REQUIRED_KEYS = ["VGA","CPU","MAINBOARD","RAM","SSD","PSU","CASE","COOLING","MONITOR"];
 
 const PRODUCTS = [
-  // VGA
+  // ===== VGA =====
   {
     id:"vga-1", category:"VGA", brand:"GALAX",
     name:"RTX 5060 EX WHITE 8GB GDDR7",
     price:12990,
-    spec:{ gpuTier:2, vram:8, length_mm: 305, pcie:"16x", psu_w_min: 550, powerPins:"1x 8pin" }
+    spec:{ gpuTier:2, vram:8, length_mm:305, psu_w_min:550, powerPins:"1x 8pin" }
   },
   {
     id:"vga-2", category:"VGA", brand:"INNO3D",
-    name:"RTX 5060 Ti X3 OC 8GB GDDR7 (N506T3-08D7X-193075L)",
+    name:"RTX 5060 Ti X3 OC 8GB GDDR7",
     price:15990,
-    spec:{ gpuTier:3, vram:8, length_mm: 310, pcie:"16x", psu_w_min: 650, powerPins:"1x 8pin" }
+    spec:{ gpuTier:3, vram:8, length_mm:310, psu_w_min:650, powerPins:"1x 8pin" }
   },
   {
     id:"vga-3", category:"VGA", brand:"SAPPHIRE",
-    name:"PURE AMD Radeon RX 9060 XT Gaming OC 16GB",
+    name:"PURE Radeon RX 9060 XT Gaming OC 16GB",
     price:17990,
-    spec:{ gpuTier:3, vram:16, length_mm: 320, pcie:"16x", psu_w_min: 650, powerPins:"2x 8pin" }
+    spec:{ gpuTier:3, vram:16, length_mm:320, psu_w_min:650, powerPins:"2x 8pin" }
   },
   {
-    id:"vga-4", category:"VGA", brand:"MSI",
-    name:"RTX 4070 Ventus 2X 12GB",
-    price:21990,
-    spec:{ gpuTier:4, vram:12, length_mm: 308, pcie:"16x", psu_w_min: 650, powerPins:"1x 16pin" }
+    id:"vga-4", category:"VGA", brand:"SPARKLE",
+    name:"Intel Arc A770 Titan OC 16GB",
+    price:14990,
+    spec:{ gpuTier:2, vram:16, length_mm:300, psu_w_min:650, powerPins:"2x 8pin" }
   },
 
-  // CPU
+  // ===== CPU (Demo placeholder) =====
   {
-    id:"cpu-1", category:"CPU", brand:"Intel",
-    name:"Core i5-14400F",
+    id:"cpu-1", category:"CPU", brand:"COMSET",
+    name:"Performance CPU Tier 3 (Demo)",
     price:6990,
-    spec:{ platform:"LGA1700", cpuTier:3, tdp_w: 65 }
+    spec:{ platform:"LGA1700", cpuTier:3, tdp_w:65 }
   },
   {
-    id:"cpu-2", category:"CPU", brand:"Intel",
-    name:"Core i7-14700F",
-    price:12990,
-    spec:{ platform:"LGA1700", cpuTier:5, tdp_w: 125 }
-  },
-  {
-    id:"cpu-3", category:"CPU", brand:"AMD",
-    name:"Ryzen 5 7600",
-    price:7990,
-    spec:{ platform:"AM5", cpuTier:3, tdp_w: 65 }
-  },
-  {
-    id:"cpu-4", category:"CPU", brand:"AMD",
-    name:"Ryzen 7 7700",
+    id:"cpu-2", category:"CPU", brand:"COMSET",
+    name:"Performance CPU Tier 4 (Demo)",
     price:10990,
-    spec:{ platform:"AM5", cpuTier:4, tdp_w: 65 }
+    spec:{ platform:"AM5", cpuTier:4, tdp_w:105 }
   },
 
-  // Mainboard
+  // ===== MAINBOARD =====
   {
     id:"mb-1", category:"MAINBOARD", brand:"ASUS",
-    name:"B760M (mATX) LGA1700",
+    name:"B760M DDR5 (mATX)",
     price:4990,
-    spec:{ platform:"LGA1700", formFactor:"mATX", ramType:"DDR5", m2Slots:2 }
+    spec:{ platform:"LGA1700", formFactor:"mATX", ramType:"DDR5" }
   },
   {
     id:"mb-2", category:"MAINBOARD", brand:"MSI",
-    name:"Z790 (ATX) LGA1700",
-    price:8990,
-    spec:{ platform:"LGA1700", formFactor:"ATX", ramType:"DDR5", m2Slots:4 }
-  },
-  {
-    id:"mb-3", category:"MAINBOARD", brand:"GIGABYTE",
-    name:"B650M (mATX) AM5",
-    price:5490,
-    spec:{ platform:"AM5", formFactor:"mATX", ramType:"DDR5", m2Slots:2 }
-  },
-  {
-    id:"mb-4", category:"MAINBOARD", brand:"ASRock",
-    name:"X670 (ATX) AM5",
-    price:9990,
-    spec:{ platform:"AM5", formFactor:"ATX", ramType:"DDR5", m2Slots:4 }
+    name:"B650 ATX DDR5",
+    price:5890,
+    spec:{ platform:"AM5", formFactor:"ATX", ramType:"DDR5" }
   },
 
-  // RAM
+  // ===== RAM =====
   {
-    id:"ram-1", category:"RAM", brand:"ADATA XPG",
-    name:"DDR5 32GB (16x2) 6000",
+    id:"ram-1", category:"RAM", brand:"ADATA",
+    name:"XPG DDR5 32GB (16x2) 6000",
     price:3290,
     spec:{ ramType:"DDR5", sizeGB:32, speed:6000 }
   },
   {
-    id:"ram-2", category:"RAM", brand:"CORSAIR",
-    name:"DDR5 32GB (16x2) 5600",
+    id:"ram-2", category:"RAM", brand:"PATRIOT",
+    name:"VIPER DDR5 32GB 5600",
     price:3490,
     spec:{ ramType:"DDR5", sizeGB:32, speed:5600 }
   },
-  {
-    id:"ram-3", category:"RAM", brand:"Kingston",
-    name:"DDR5 16GB (8x2) 5200",
-    price:2190,
-    spec:{ ramType:"DDR5", sizeGB:16, speed:5200 }
-  },
 
-  // SSD
+  // ===== SSD =====
   {
-    id:"ssd-1", category:"SSD", brand:"Samsung",
-    name:"NVMe 1TB Gen4",
+    id:"ssd-1", category:"SSD", brand:"SAMSUNG",
+    name:"NVMe Gen4 1TB",
     price:2790,
     spec:{ type:"NVMe", gen:"Gen4", sizeGB:1000 }
   },
   {
-    id:"ssd-2", category:"SSD", brand:"WD",
-    name:"NVMe 2TB Gen4",
-    price:4490,
-    spec:{ type:"NVMe", gen:"Gen4", sizeGB:2000 }
-  },
-  {
-    id:"ssd-3", category:"SSD", brand:"ADATA",
-    name:"NVMe 1TB Gen3",
+    id:"ssd-2", category:"SSD", brand:"ADATA",
+    name:"XPG NVMe Gen3 1TB",
     price:2090,
     spec:{ type:"NVMe", gen:"Gen3", sizeGB:1000 }
   },
-
-  // PSU
   {
-    id:"psu-1", category:"PSU", brand:"Thermaltake",
+    id:"ssd-3", category:"SSD", brand:"HIKSEMI",
+    name:"Future NVMe 1TB",
+    price:1990,
+    spec:{ type:"NVMe", gen:"Gen3", sizeGB:1000 }
+  },
+
+  // ===== PSU =====
+  {
+    id:"psu-1", category:"PSU", brand:"SUPER FLOWER",
     name:"650W 80+ Bronze",
     price:2190,
-    spec:{ watt:650, rating:"Bronze", pcie8pin:2, pcie16pin:0 }
+    spec:{ watt:650, rating:"Bronze", pcie16pin:0 }
   },
   {
-    id:"psu-2", category:"PSU", brand:"CORSAIR",
-    name:"750W 80+ Gold (ATX 3.0)",
+    id:"psu-2", category:"PSU", brand:"CORSAIR COMPONENTS",
+    name:"750W 80+ Gold ATX 3.0",
     price:3990,
-    spec:{ watt:750, rating:"Gold", pcie8pin:3, pcie16pin:1 }
-  },
-  {
-    id:"psu-3", category:"PSU", brand:"Seasonic",
-    name:"850W 80+ Gold (ATX 3.0)",
-    price:4990,
-    spec:{ watt:850, rating:"Gold", pcie8pin:4, pcie16pin:1 }
+    spec:{ watt:750, rating:"Gold", pcie16pin:1 }
   },
 
-  // CASE
+  // ===== CASE =====
   {
-    id:"case-1", category:"CASE", brand:"Montech",
-    name:"Airflow Case (ATX) - Max VGA 360mm",
+    id:"case-1", category:"CASE", brand:"MONTECH",
+    name:"Airflow ATX – Max VGA 360mm",
     price:1890,
-    spec:{ supports:["ATX","mATX","ITX"], maxVgaMm:360, maxCoolerHeightMm:165, radSupport:[240,360] }
+    spec:{ supports:["ATX","mATX","ITX"], maxVgaMm:360, maxCoolerHeightMm:165 }
   },
   {
-    id:"case-2", category:"CASE", brand:"NZXT",
-    name:"Mid Tower (ATX) - Max VGA 315mm",
-    price:3290,
-    spec:{ supports:["ATX","mATX","ITX"], maxVgaMm:315, maxCoolerHeightMm:160, radSupport:[240] }
-  },
-  {
-    id:"case-3", category:"CASE", brand:"Antec",
-    name:"Compact (mATX) - Max VGA 300mm",
+    id:"case-2", category:"CASE", brand:"ANTEC",
+    name:"Mid Tower mATX – Max VGA 300mm",
     price:1490,
-    spec:{ supports:["mATX","ITX"], maxVgaMm:300, maxCoolerHeightMm:155, radSupport:[240] }
+    spec:{ supports:["mATX","ITX"], maxVgaMm:300, maxCoolerHeightMm:155 }
   },
 
-  // COOLING (รวม LIQUID / AIR / FAN)
+  // ===== COOLING =====
   {
-    id:"cool-1", category:"COOLING", brand:"DeepCool",
-    name:"AIR COOLING - Tower 160mm",
+    id:"cool-1", category:"COOLING", brand:"THERMALTAKE",
+    name:"Air Cooling Tower 160mm",
     price:990,
     spec:{ type:"AIR", heightMm:160 }
   },
   {
-    id:"cool-2", category:"COOLING", brand:"Corsair",
-    name:"LIQUID COOLING - AIO 240mm",
+    id:"cool-2", category:"COOLING", brand:"CORSAIR COMPONENTS",
+    name:"Liquid Cooling AIO 240mm",
     price:2890,
     spec:{ type:"LIQUID", radMm:240 }
   },
-  {
-    id:"cool-3", category:"COOLING", brand:"Thermaltake",
-    name:"FAN Pack (3pcs)",
-    price:690,
-    spec:{ type:"FAN" }
-  },
 
-  // MONITOR
+  // ===== MONITOR =====
   {
-    id:"mon-1", category:"MONITOR", brand:"MSI",
+    id:"mon-1", category:"MONITOR", brand:"EVNIA",
     name:"27\" 1440p 170Hz",
     price:6990,
     spec:{ sizeInch:27, res:"1440p", hz:170 }
   },
   {
-    id:"mon-2", category:"MONITOR", brand:"ASUS",
-    name:"24\" 1080p 165Hz",
-    price:4590,
-    spec:{ sizeInch:24, res:"1080p", hz:165 }
-  },
-  {
-    id:"mon-3", category:"MONITOR", brand:"LG",
+    id:"mon-2", category:"MONITOR", brand:"LG",
     name:"32\" 4K 60Hz",
     price:9990,
     spec:{ sizeInch:32, res:"4K", hz:60 }
-  },
+  }
 ];
 
 /* =========================
