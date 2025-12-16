@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Ascenti Comset Builder (Prototype)</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#101b3d;
+      --card:#121e45;
+      --muted:#94a3b8;
+      --text:#e6edf7;
+      --accent:#60a5fa;
+      --accent2:#34d399;
+      --warn:#fbbf24;
+      --bad:#fb7185;
+      --line: rgba(255,255,255,.10);
+      --shadow: 0 12px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --radius2: 22px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans Thai", "Noto Sans", Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: var(--sans);
+      color: var(--text);
+      background:
+        radial-gradient(900px 500px at 20% 10%, rgba(96,165,250,.25), transparent 60%),
+        radial-gradient(900px 500px at 80% 20%, rgba(52,211,153,.18), transparent 60%),
+        radial-gradient(1000px 700px at 60% 90%, rgba(251,191,36,.12), transparent 60%),
+        linear-gradient(180deg, #070a14, var(--bg));
+      min-height: 100vh;
+    }
+    a{ color: inherit; }
+    .topbar{
+      position: sticky;
+      top:0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(7,10,20,.65);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner{
+      max-width: 1320px;
+      margin:0 auto;
+      padding: 14px 18px;
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      justify-content: space-between;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+    }
+    .logo{
+      width: 42px; height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(96,165,250,.95), rgba(52,211,153,.95));
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    .logo:after{
+      content:"";
+      position:absolute;
+      inset:10px;
+      border-radius: 10px;
+      background: rgba(8,12,24,.55);
+    }
+    .brand h1{
+      font-size: 16px;
+      margin:0;
+      line-height: 1.2;
+      letter-spacing: .2px;
+    }
+    .brand small{
+      display:block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 2px;
+    }
+    .actions{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--line);
+      color: var(--text);
+      cursor:pointer;
+      user-select:none;
+      transition: transform .12s ease, background .12s ease;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    .pill:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); }
+    .pill.primary{
+      background: rgba(96,165,250,.20);
+      border-color: rgba(96,165,250,.35);
+    }
+    .pill.danger{
+      background: rgba(251,113,133,.16);
+      border-color: rgba(251,113,133,.35);
+    }
+
+    .wrap{
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 18px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 330px 1fr 360px;
+      gap: 16px;
+      align-items:start;
+    }
+
+    @media (max-width: 1160px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .panel{
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--line);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .panel-header{
+      padding: 14px 14px 10px;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), transparent);
+      border-bottom: 1px solid var(--line);
+      display:flex;
+      align-items:flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .panel-title{
+      margin:0;
+      font-size: 14px;
+      letter-spacing:.2px;
+    }
+    .panel-sub{
+      margin:4px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+    .panel-body{ padding: 12px 14px 14px; }
+
+    .progress{
+      height: 8px;
+      background: rgba(255,255,255,.08);
+      border-radius: 999px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.10);
+      margin-top: 10px;
+    }
+    .progress > div{
+      height:100%;
+      width: 0%;
+      background: linear-gradient(90deg, rgba(96,165,250,.95), rgba(52,211,153,.95));
+    }
+
+    .kv{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px dashed rgba(255,255,255,.12);
+    }
+    .kv:last-child{ border-bottom: none; }
+    .k{
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .v{
+      font-size: 12px;
+      text-align: right;
+      max-width: 65%;
+      line-height: 1.35;
+    }
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      font-size: 12px;
+      color: var(--text);
+      white-space: nowrap;
+    }
+    .tag.good{ border-color: rgba(52,211,153,.35); background: rgba(52,211,153,.12); }
+    .tag.warn{ border-color: rgba(251,191,36,.40); background: rgba(251,191,36,.12); }
+    .tag.bad{ border-color: rgba(251,113,133,.40); background: rgba(251,113,133,.12); }
+
+    .category-strip{
+      display:flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .catbtn{
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--line);
+      cursor:pointer;
+      font-size: 13px;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      user-select: none;
+    }
+    .catbtn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); }
+    .catbtn.active{
+      background: rgba(96,165,250,.20);
+      border-color: rgba(96,165,250,.45);
+    }
+
+    .controls{
+      display:grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    @media (max-width: 1160px){
+      .controls{ grid-template-columns: 1fr; }
+    }
+    .field{
+      display:flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .label{
+      font-size: 12px;
+      color: var(--muted);
+    }
+    input[type="text"], select{
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.20);
+      border: 1px solid rgba(255,255,255,.14);
+      color: var(--text);
+      outline: none;
+      font-size: 13px;
+    }
+    input[type="text"]::placeholder{ color: rgba(148,163,184,.8); }
+    select option{ background: #0b1020; color: var(--text); }
+
+    .tabs{
+      display:flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .tab{
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      cursor:pointer;
+      font-size: 13px;
+      user-select:none;
+    }
+    .tab.active{
+      background: rgba(52,211,153,.14);
+      border-color: rgba(52,211,153,.35);
+    }
+
+    .list{
+      margin-top: 12px;
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 10px;
+    }
+    @media (max-width: 700px){
+      .list{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 12px;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      cursor:pointer;
+      position: relative;
+      overflow:hidden;
+      min-height: 140px;
+    }
+    .card:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.075);
+      border-color: rgba(255,255,255,.18);
+    }
+    .card.selected{
+      border-color: rgba(96,165,250,.6);
+      background: rgba(96,165,250,.14);
+    }
+    .card h3{
+      margin: 0 0 6px;
+      font-size: 14px;
+      line-height: 1.25;
+      letter-spacing: .2px;
+    }
+    .meta{
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .price{
+      margin-top: 8px;
+      display:flex;
+      justify-content: space-between;
+      align-items:center;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .price strong{
+      color: var(--text);
+      font-size: 13px;
+    }
+    .reason{
+      margin-top: 8px;
+      padding: 10px 10px;
+      border-radius: 14px;
+      border: 1px dashed rgba(255,255,255,.18);
+      background: rgba(0,0,0,.18);
+      color: rgba(230,237,247,.92);
+      font-size: 12px;
+      line-height: 1.35;
+      min-height: 48px;
+    }
+    .small{
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .specrow{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .specrow span{
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+    }
+    .chip{
+      font-family: var(--mono);
+      font-size: 11px;
+      opacity: .95;
+    }
+
+    .ai-box{
+      border-radius: var(--radius2);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      padding: 12px;
+      line-height: 1.45;
+    }
+    .ai-title{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .ai-title h3{
+      margin:0;
+      font-size: 14px;
+    }
+    .ai-title .tag{ font-size: 11px; }
+    .ai-msg{
+      font-size: 13px;
+      color: rgba(230,237,247,.93);
+      white-space: pre-line;
+    }
+    .divider{
+      height: 1px;
+      background: rgba(255,255,255,.10);
+      margin: 12px 0;
+    }
+
+    .toast{
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      background: rgba(15,23,51,.92);
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: var(--shadow);
+      border-radius: 16px;
+      padding: 12px 14px;
+      max-width: 380px;
+      z-index: 100;
+      display:none;
+    }
+    .toast strong{ display:block; margin-bottom: 4px; font-size: 13px; }
+    .toast p{ margin:0; color: var(--muted); font-size: 12px; line-height: 1.4; }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Ascenti Comset Builder <span class="chip">Prototype</span></h1>
+          <small>แสดงสินค้าได้ทุกแบรนด์ในหมวดเดียวกัน • เลือกประกอบ • มี AI ช่วยจัดสเปค</small>
+        </div>
+      </div>
+
+      <div class="actions">
+        <div class="pill primary" id="btnAutoSuggest">✨ AI แนะนำชุดเริ่มต้น</div>
+        <div class="pill" id="btnExport">📋 Copy สรุป Comset</div>
+        <div class="pill danger" id="btnReset">🧹 ล้าง Comset</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="grid">
+
+      <!-- LEFT: COMSET SUMMARY -->
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">🖥️ Your Comset</h2>
+            <p class="panel-sub">เลือกได้อิสระทุกหมวด ระบบจะคัดกรอง + เรียงลำดับให้</p>
+            <div class="progress"><div id="progressBar"></div></div>
+          </div>
+          <span class="tag" id="progressText">0/9</span>
+        </div>
+
+        <div class="panel-body" id="summaryBox"></div>
+      </div>
+
+      <!-- CENTER: SELECTOR -->
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">🧩 เลือกอุปกรณ์</h2>
+            <p class="panel-sub">แสดงสินค้าทั้งหมดในหมวด พร้อมจัดกลุ่ม: แนะนำ / ใช้ได้ / ใส่ไม่ได้ (มีเหตุผล)</p>
+          </div>
+          <span class="tag" id="activeCatTag">VGA</span>
+        </div>
+
+        <div class="panel-body">
+          <div class="category-strip" id="categoryStrip"></div>
+
+          <div class="controls">
+            <div class="field">
+              <div class="label">ค้นหา (Model / Product Name)</div>
+              <input type="text" id="searchBox" placeholder="เช่น RTX 5060, B650, 750W, 27&quot; 1440p" />
+            </div>
+
+            <div class="field">
+              <div class="label">กรอง Brand</div>
+              <select id="brandFilter"></select>
+            </div>
+
+            <div class="field">
+              <div class="label">Sort</div>
+              <select id="sortBy">
+                <option value="rank">AI Rank (แนะนำก่อน)</option>
+                <option value="price_asc">Price ต่ำ → สูง</option>
+                <option value="price_desc">Price สูง → ต่ำ</option>
+                <option value="name_asc">Name A → Z</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="tabs" id="tabs">
+            <div class="tab active" data-tab="recommended">⭐ แนะนำ</div>
+            <div class="tab" data-tab="ok">👍 ใช้ได้</div>
+            <div class="tab" data-tab="no">⚠️ ใส่ไม่ได้</div>
+          </div>
+
+          <div class="list" id="productList"></div>
+          <div class="small" style="margin-top:10px;color:rgba(148,163,184,.95)">
+            * Prototype นี้ใช้ข้อมูลตัวอย่างเพื่อโชว์ UX/UI และโครงสร้างการคัดกรอง/แสดงผล
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: AI INSIGHT -->
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">🤖 AI Insight</h2>
+            <p class="panel-sub">ประเมินแบบ progressive: เลือกไม่ครบก็ให้คำแนะนำได้ / เลือกครบจะสรุปทั้งเครื่อง</p>
+          </div>
+          <span class="tag good" id="aiModeTag">Partial</span>
+        </div>
+
+        <div class="panel-body">
+          <div class="ai-box">
+            <div class="ai-title">
+              <h3>สรุป ณ ตอนนี้</h3>
+              <span class="tag" id="aiStatusTag">ยังเลือกไม่ครบ</span>
+            </div>
+            <div class="ai-msg" id="aiMessage"></div>
+            <div class="divider"></div>
+            <div class="small">
+              แนวทางจริงควรแยกเป็น 2 ส่วน:
+              <br/>1) Rule-based Engine (ใส่ได้/ไม่ได้)
+              <br/>2) AI Optimization Layer (คุ้มค่า/บาลานซ์/เหตุผล)
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="toast" id="toast">
+    <strong id="toastTitle"></strong>
+    <p id="toastBody"></p>
+  </div>
+
+<script>
+/* =========================
+   Prototype Data (Example)
+   - ในระบบจริง: ดึงจากฐานข้อมูลสินค้าบริษัท (Ascenti) + Spec fields ที่ใช้คำนวณ
+========================= */
+
+const CATEGORIES = [
+  { key: "VGA",        label: "VGA" },
+  { key: "CPU",        label: "CPU" },
+  { key: "MAINBOARD",  label: "Mainboard" },
+  { key: "RAM",        label: "RAM" },
+  { key: "SSD",        label: "SSD" },
+  { key: "PSU",        label: "Powersupply" },
+  { key: "CASE",       label: "Case" },
+  { key: "COOLING",    label: "Cooling" },
+  { key: "MONITOR",    label: "Monitor" },
+];
+
+const REQUIRED_KEYS = ["VGA","CPU","MAINBOARD","RAM","SSD","PSU","CASE","COOLING","MONITOR"];
+
+const PRODUCTS = [
+  // VGA
+  {
+    id:"vga-1", category:"VGA", brand:"GALAX",
+    name:"RTX 5060 EX WHITE 8GB GDDR7",
+    price:12990,
+    spec:{ gpuTier:2, vram:8, length_mm: 305, pcie:"16x", psu_w_min: 550, powerPins:"1x 8pin" }
+  },
+  {
+    id:"vga-2", category:"VGA", brand:"INNO3D",
+    name:"RTX 5060 Ti X3 OC 8GB GDDR7 (N506T3-08D7X-193075L)",
+    price:15990,
+    spec:{ gpuTier:3, vram:8, length_mm: 310, pcie:"16x", psu_w_min: 650, powerPins:"1x 8pin" }
+  },
+  {
+    id:"vga-3", category:"VGA", brand:"SAPPHIRE",
+    name:"PURE AMD Radeon RX 9060 XT Gaming OC 16GB",
+    price:17990,
+    spec:{ gpuTier:3, vram:16, length_mm: 320, pcie:"16x", psu_w_min: 650, powerPins:"2x 8pin" }
+  },
+  {
+    id:"vga-4", category:"VGA", brand:"MSI",
+    name:"RTX 4070 Ventus 2X 12GB",
+    price:21990,
+    spec:{ gpuTier:4, vram:12, length_mm: 308, pcie:"16x", psu_w_min: 650, powerPins:"1x 16pin" }
+  },
+
+  // CPU
+  {
+    id:"cpu-1", category:"CPU", brand:"Intel",
+    name:"Core i5-14400F",
+    price:6990,
+    spec:{ platform:"LGA1700", cpuTier:3, tdp_w: 65 }
+  },
+  {
+    id:"cpu-2", category:"CPU", brand:"Intel",
+    name:"Core i7-14700F",
+    price:12990,
+    spec:{ platform:"LGA1700", cpuTier:5, tdp_w: 125 }
+  },
+  {
+    id:"cpu-3", category:"CPU", brand:"AMD",
+    name:"Ryzen 5 7600",
+    price:7990,
+    spec:{ platform:"AM5", cpuTier:3, tdp_w: 65 }
+  },
+  {
+    id:"cpu-4", category:"CPU", brand:"AMD",
+    name:"Ryzen 7 7700",
+    price:10990,
+    spec:{ platform:"AM5", cpuTier:4, tdp_w: 65 }
+  },
+
+  // Mainboard
+  {
+    id:"mb-1", category:"MAINBOARD", brand:"ASUS",
+    name:"B760M (mATX) LGA1700",
+    price:4990,
+    spec:{ platform:"LGA1700", formFactor:"mATX", ramType:"DDR5", m2Slots:2 }
+  },
+  {
+    id:"mb-2", category:"MAINBOARD", brand:"MSI",
+    name:"Z790 (ATX) LGA1700",
+    price:8990,
+    spec:{ platform:"LGA1700", formFactor:"ATX", ramType:"DDR5", m2Slots:4 }
+  },
+  {
+    id:"mb-3", category:"MAINBOARD", brand:"GIGABYTE",
+    name:"B650M (mATX) AM5",
+    price:5490,
+    spec:{ platform:"AM5", formFactor:"mATX", ramType:"DDR5", m2Slots:2 }
+  },
+  {
+    id:"mb-4", category:"MAINBOARD", brand:"ASRock",
+    name:"X670 (ATX) AM5",
+    price:9990,
+    spec:{ platform:"AM5", formFactor:"ATX", ramType:"DDR5", m2Slots:4 }
+  },
+
+  // RAM
+  {
+    id:"ram-1", category:"RAM", brand:"ADATA XPG",
+    name:"DDR5 32GB (16x2) 6000",
+    price:3290,
+    spec:{ ramType:"DDR5", sizeGB:32, speed:6000 }
+  },
+  {
+    id:"ram-2", category:"RAM", brand:"CORSAIR",
+    name:"DDR5 32GB (16x2) 5600",
+    price:3490,
+    spec:{ ramType:"DDR5", sizeGB:32, speed:5600 }
+  },
+  {
+    id:"ram-3", category:"RAM", brand:"Kingston",
+    name:"DDR5 16GB (8x2) 5200",
+    price:2190,
+    spec:{ ramType:"DDR5", sizeGB:16, speed:5200 }
+  },
+
+  // SSD
+  {
+    id:"ssd-1", category:"SSD", brand:"Samsung",
+    name:"NVMe 1TB Gen4",
+    price:2790,
+    spec:{ type:"NVMe", gen:"Gen4", sizeGB:1000 }
+  },
+  {
+    id:"ssd-2", category:"SSD", brand:"WD",
+    name:"NVMe 2TB Gen4",
+    price:4490,
+    spec:{ type:"NVMe", gen:"Gen4", sizeGB:2000 }
+  },
+  {
+    id:"ssd-3", category:"SSD", brand:"ADATA",
+    name:"NVMe 1TB Gen3",
+    price:2090,
+    spec:{ type:"NVMe", gen:"Gen3", sizeGB:1000 }
+  },
+
+  // PSU
+  {
+    id:"psu-1", category:"PSU", brand:"Thermaltake",
+    name:"650W 80+ Bronze",
+    price:2190,
+    spec:{ watt:650, rating:"Bronze", pcie8pin:2, pcie16pin:0 }
+  },
+  {
+    id:"psu-2", category:"PSU", brand:"CORSAIR",
+    name:"750W 80+ Gold (ATX 3.0)",
+    price:3990,
+    spec:{ watt:750, rating:"Gold", pcie8pin:3, pcie16pin:1 }
+  },
+  {
+    id:"psu-3", category:"PSU", brand:"Seasonic",
+    name:"850W 80+ Gold (ATX 3.0)",
+    price:4990,
+    spec:{ watt:850, rating:"Gold", pcie8pin:4, pcie16pin:1 }
+  },
+
+  // CASE
+  {
+    id:"case-1", category:"CASE", brand:"Montech",
+    name:"Airflow Case (ATX) - Max VGA 360mm",
+    price:1890,
+    spec:{ supports:["ATX","mATX","ITX"], maxVgaMm:360, maxCoolerHeightMm:165, radSupport:[240,360] }
+  },
+  {
+    id:"case-2", category:"CASE", brand:"NZXT",
+    name:"Mid Tower (ATX) - Max VGA 315mm",
+    price:3290,
+    spec:{ supports:["ATX","mATX","ITX"], maxVgaMm:315, maxCoolerHeightMm:160, radSupport:[240] }
+  },
+  {
+    id:"case-3", category:"CASE", brand:"Antec",
+    name:"Compact (mATX) - Max VGA 300mm",
+    price:1490,
+    spec:{ supports:["mATX","ITX"], maxVgaMm:300, maxCoolerHeightMm:155, radSupport:[240] }
+  },
+
+  // COOLING (รวม LIQUID / AIR / FAN)
+  {
+    id:"cool-1", category:"COOLING", brand:"DeepCool",
+    name:"AIR COOLING - Tower 160mm",
+    price:990,
+    spec:{ type:"AIR", heightMm:160 }
+  },
+  {
+    id:"cool-2", category:"COOLING", brand:"Corsair",
+    name:"LIQUID COOLING - AIO 240mm",
+    price:2890,
+    spec:{ type:"LIQUID", radMm:240 }
+  },
+  {
+    id:"cool-3", category:"COOLING", brand:"Thermaltake",
+    name:"FAN Pack (3pcs)",
+    price:690,
+    spec:{ type:"FAN" }
+  },
+
+  // MONITOR
+  {
+    id:"mon-1", category:"MONITOR", brand:"MSI",
+    name:"27\" 1440p 170Hz",
+    price:6990,
+    spec:{ sizeInch:27, res:"1440p", hz:170 }
+  },
+  {
+    id:"mon-2", category:"MONITOR", brand:"ASUS",
+    name:"24\" 1080p 165Hz",
+    price:4590,
+    spec:{ sizeInch:24, res:"1080p", hz:165 }
+  },
+  {
+    id:"mon-3", category:"MONITOR", brand:"LG",
+    name:"32\" 4K 60Hz",
+    price:9990,
+    spec:{ sizeInch:32, res:"4K", hz:60 }
+  },
+];
+
+/* =========================
+   State
+========================= */
+let activeCategory = "VGA";
+let activeTab = "recommended"; // recommended | ok | no
+let searchText = "";
+let brandFilter = "ALL";
+let sortBy = "rank";
+
+const selected = {
+  VGA: null,
+  CPU: null,
+  MAINBOARD: null,
+  RAM: null,
+  SSD: null,
+  PSU: null,
+  CASE: null,
+  COOLING: null,
+  MONITOR: null,
+};
+
+/* =========================
+   Helpers
+========================= */
+function formatPrice(n){
+  return new Intl.NumberFormat("th-TH").format(n);
+}
+function toast(title, body){
+  const t = document.getElementById("toast");
+  document.getElementById("toastTitle").textContent = title;
+  document.getElementById("toastBody").textContent = body;
+  t.style.display = "block";
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(()=> t.style.display = "none", 2400);
+}
+function getSelectedCount(){
+  return REQUIRED_KEYS.filter(k => !!selected[k]).length;
+}
+function getProgressPercent(){
+  return Math.round((getSelectedCount() / REQUIRED_KEYS.length) * 100);
+}
+function getBrandsForCategory(cat){
+  const set = new Set(PRODUCTS.filter(p => p.category === cat).map(p => p.brand));
+  return ["ALL", ...Array.from(set).sort((a,b)=>a.localeCompare(b))];
+}
+
+/* =========================
+   Compatibility + AI Rank (Prototype)
+   - ในระบบจริง: อิง spec จริง + rule set เต็ม
+========================= */
+
+function evaluateProduct(candidate){
+  // returns { group: recommended|ok|no, reasons:[...], rankScore:number }
+  const reasons = [];
+  let group = "ok";
+  let rankScore = 50; // base
+
+  const sel = selected;
+
+  // CASE ↔ VGA length
+  if (candidate.category === "CASE" && sel.VGA){
+    const vgaLen = sel.VGA.spec.length_mm;
+    if (candidate.spec.maxVgaMm < vgaLen){
+      group = "no";
+      reasons.push(`ใส่ไม่ได้: รองรับ VGA สูงสุด ${candidate.spec.maxVgaMm}mm แต่ VGA ที่เลือกยาว ${vgaLen}mm`);
+      rankScore -= 100;
+    } else {
+      reasons.push(`ใส่ได้: รองรับ VGA สูงสุด ${candidate.spec.maxVgaMm}mm (VGA ยาว ${vgaLen}mm)`);
+      rankScore += 10;
+      if (candidate.spec.maxVgaMm - vgaLen >= 30){
+        group = "recommended";
+        reasons.push("เผื่อระยะเหลือดี ช่วยเรื่องจัดสาย/airflow");
+        rankScore += 10;
+      }
+    }
+  }
+
+  // MAINBOARD ↔ CPU platform
+  if (candidate.category === "MAINBOARD" && sel.CPU){
+    if (candidate.spec.platform !== sel.CPU.spec.platform){
+      group = "no";
+      reasons.push(`ใส่ไม่ได้: Mainboard (${candidate.spec.platform}) ไม่ตรงกับ CPU (${sel.CPU.spec.platform})`);
+      rankScore -= 120;
+    } else {
+      reasons.push(`ใส่ได้: Platform ตรงกัน (${candidate.spec.platform})`);
+      rankScore += 15;
+      group = "recommended";
+    }
+  }
+  if (candidate.category === "CPU" && sel.MAINBOARD){
+    if (candidate.spec.platform !== sel.MAINBOARD.spec.platform){
+      group = "no";
+      reasons.push(`ใส่ไม่ได้: CPU (${candidate.spec.platform}) ไม่ตรงกับ Mainboard (${sel.MAINBOARD.spec.platform})`);
+      rankScore -= 120;
+    } else {
+      reasons.push(`ใส่ได้: Platform ตรงกัน (${candidate.spec.platform})`);
+      rankScore += 15;
+      group = "recommended";
+    }
+  }
+
+  // MAINBOARD ↔ RAM type
+  if (candidate.category === "RAM" && sel.MAINBOARD){
+    if (candidate.spec.ramType !== sel.MAINBOARD.spec.ramType){
+      group = "no";
+      reasons.push(`ใส่ไม่ได้: RAM (${candidate.spec.ramType}) ไม่ตรงกับ Mainboard (${sel.MAINBOARD.spec.ramType})`);
+      rankScore -= 120;
+    } else {
+      reasons.push(`ใส่ได้: RAM Type ตรงกัน (${candidate.spec.ramType})`);
+      rankScore += 10;
+      if (candidate.spec.sizeGB >= 32){
+        group = "recommended";
+        reasons.push("RAM 32GB เหมาะกับงานหลายอย่าง/เกมใหม่ ๆ");
+        rankScore += 8;
+      }
+    }
+  }
+
+  // PSU ↔ VGA minimum watt + connector rough check
+  if (candidate.category === "PSU" && sel.VGA){
+    const minW = sel.VGA.spec.psu_w_min || 0;
+    if (candidate.spec.watt < minW){
+      group = "no";
+      reasons.push(`ไม่พอ: VGA ต้องการ PSU อย่างน้อย ${minW}W แต่ PSU นี้ ${candidate.spec.watt}W`);
+      rankScore -= 140;
+    } else {
+      reasons.push(`เพียงพอ: ${candidate.spec.watt}W ≥ ${minW}W`);
+      rankScore += 15;
+      // headroom scoring
+      const headroom = candidate.spec.watt - minW;
+      if (headroom >= 150){
+        group = "recommended";
+        reasons.push("มี headroom เหลือ เหมาะกับ upgrade/โหลดหนัก");
+        rankScore += 10;
+      } else if (headroom < 80){
+        reasons.push("ใส่ได้แต่ headroom ไม่เยอะ");
+        rankScore -= 5;
+      }
+      // ATX 3.0 / 16pin bonus (rough)
+      if (sel.VGA.spec.powerPins && sel.VGA.spec.powerPins.includes("16pin")){
+        if (candidate.spec.pcie16pin >= 1){
+          reasons.push("มี 16-pin รองรับการ์ดจอรุ่นใหม่");
+          rankScore += 6;
+        } else {
+          reasons.push("อาจต้องใช้สายแปลง 16-pin (ไม่แนะนำถ้าเลี่ยงได้)");
+          rankScore -= 8;
+          group = (group === "recommended") ? "ok" : group;
+        }
+      }
+    }
+  }
+
+  // COOLING ↔ CASE (AIO rad support / air height)
+  if (candidate.category === "COOLING" && sel.CASE){
+    const c = candidate.spec;
+    const box = sel.CASE.spec;
+    if (c.type === "AIR" && c.heightMm){
+      if (c.heightMm > box.maxCoolerHeightMm){
+        group = "no";
+        reasons.push(`ใส่ไม่ได้: ฮีตซิงก์สูง ${c.heightMm}mm แต่เคสรองรับ ${box.maxCoolerHeightMm}mm`);
+        rankScore -= 120;
+      } else {
+        reasons.push(`ใส่ได้: ความสูง ${c.heightMm}mm (เคสรองรับ ${box.maxCoolerHeightMm}mm)`);
+        rankScore += 10;
+        group = "recommended";
+      }
+    }
+    if (c.type === "LIQUID" && c.radMm){
+      if (!box.radSupport.includes(c.radMm)){
+        group = "no";
+        reasons.push(`ใส่ไม่ได้: เคสไม่รองรับหม้อน้ำ ${c.radMm}mm`);
+        rankScore -= 120;
+      } else {
+        reasons.push(`ใส่ได้: เคสรองรับหม้อน้ำ ${c.radMm}mm`);
+        rankScore += 10;
+        group = "recommended";
+      }
+    }
+    if (c.type === "FAN"){
+      reasons.push("พัดลมเสริมช่วย airflow (แนะนำหากเคส airflow ปานกลาง)");
+      rankScore += 4;
+      group = (group === "no") ? "no" : "ok";
+    }
+  }
+
+  // MONITOR ↔ VGA tier guidance (not hard compatibility)
+  if (candidate.category === "MONITOR" && sel.VGA){
+    const tier = sel.VGA.spec.gpuTier || 1;
+    const res = candidate.spec.res;
+    if (res === "4K" && tier < 4){
+      reasons.push("ใส่ได้ แต่ 4K อาจไม่ลื่นในเกมหนัก ๆ กับ VGA ระดับนี้");
+      group = "ok";
+      rankScore -= 8;
+    }
+    if (res === "1440p" && tier >= 3){
+      group = "recommended";
+      reasons.push("1440p เหมาะกับ VGA ระดับนี้ (บาลานซ์ดี)");
+      rankScore += 8;
+    }
+    if (res === "1080p" && tier >= 4){
+      reasons.push("1080p ใส่ได้ แต่ VGA อาจแรงเกินความละเอียด (ถ้าเน้นคุ้มอาจขยับเป็น 1440p)");
+      rankScore -= 4;
+    }
+  }
+
+  // Basic pricing/value tie-breaker (prototype)
+  // Encourage better value: slightly prefer lower price within same group
+  rankScore += Math.max(0, 5000 - candidate.price) / 1000;
+
+  // If no specific reasons were generated, provide generic
+  if (reasons.length === 0){
+    reasons.push("แสดงสินค้าทั้งหมดในหมวดนี้ เลือกได้ทุกแบรนด์");
+    // promote recommended if nothing conflicts and category has no dependency selected
+    group = "recommended";
+    rankScore += 5;
+  }
+
+  return { group, reasons, rankScore };
+}
+
+/* =========================
+   Rendering
+========================= */
+
+function renderCategories(){
+  const strip = document.getElementById("categoryStrip");
+  strip.innerHTML = "";
+  CATEGORIES.forEach(c => {
+    const btn = document.createElement("div");
+    btn.className = "catbtn" + (c.key === activeCategory ? " active" : "");
+    btn.textContent = c.label;
+    btn.onclick = () => {
+      activeCategory = c.key;
+      document.getElementById("activeCatTag").textContent = c.label;
+      setupBrandFilter();
+      renderProducts();
+    };
+    strip.appendChild(btn);
+  });
+}
+
+function setupBrandFilter(){
+  const select = document.getElementById("brandFilter");
+  const brands = getBrandsForCategory(activeCategory);
+  select.innerHTML = "";
+  brands.forEach(b => {
+    const opt = document.createElement("option");
+    opt.value = b;
+    opt.textContent = (b === "ALL") ? "ทั้งหมด" : b;
+    select.appendChild(opt);
+  });
+  brandFilter = "ALL";
+  select.value = "ALL";
+}
+
+function renderSummary(){
+  const box = document.getElementById("summaryBox");
+  box.innerHTML = "";
+
+  const count = getSelectedCount();
+  document.getElementById("progressText").textContent = `${count}/${REQUIRED_KEYS.length}`;
+  document.getElementById("progressBar").style.width = `${getProgressPercent()}%`;
+
+  const mapLabel = {
+    VGA:"VGA",
+    CPU:"CPU",
+    MAINBOARD:"Mainboard",
+    RAM:"RAM",
+    SSD:"SSD",
+    PSU:"Powersupply",
+    CASE:"Case",
+    COOLING:"Cooling",
+    MONITOR:"Monitor",
+  };
+
+  REQUIRED_KEYS.forEach(k => {
+    const row = document.createElement("div");
+    row.className = "kv";
+    const left = document.createElement("div");
+    left.className = "k";
+    left.textContent = mapLabel[k];
+
+    const right = document.createElement("div");
+    right.className = "v";
+    if (!selected[k]){
+      right.innerHTML = `<span class="tag warn">ยังไม่เลือก</span>`;
+    } else {
+      right.innerHTML = `
+        <div style="display:flex;gap:8px;justify-content:flex-end;align-items:center;flex-wrap:wrap">
+          <span class="tag good">${escapeHtml(selected[k].brand)}</span>
+          <span class="tag">${escapeHtml(shorten(selected[k].name, 36))}</span>
+          <span class="tag">${formatPrice(selected[k].price)} ฿</span>
+          <span class="tag bad" style="cursor:pointer" title="ลบรายการ" data-remove="${k}">ลบ</span>
+        </div>
+      `;
+    }
+
+    row.appendChild(left);
+    row.appendChild(right);
+    box.appendChild(row);
+  });
+
+  // bind remove buttons
+  box.querySelectorAll("[data-remove]").forEach(el=>{
+    el.addEventListener("click", (e)=>{
+      const key = e.currentTarget.getAttribute("data-remove");
+      selected[key] = null;
+      renderAll();
+      toast("ลบออกแล้ว", `ลบ ${key} จาก Comset`);
+    });
+  });
+}
+
+function renderTabs(){
+  document.querySelectorAll(".tab").forEach(t=>{
+    t.classList.toggle("active", t.getAttribute("data-tab") === activeTab);
+  });
+}
+
+function renderProducts(){
+  const list = document.getElementById("productList");
+  list.innerHTML = "";
+
+  const candidates = PRODUCTS.filter(p => p.category === activeCategory);
+
+  const filtered = candidates.filter(p=>{
+    const q = searchText.trim().toLowerCase();
+    const passSearch = !q || (p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q));
+    const passBrand = (brandFilter === "ALL") || (p.brand === brandFilter);
+    return passSearch && passBrand;
+  });
+
+  // evaluate each candidate against current selections
+  const evaluated = filtered.map(p=>{
+    const ev = evaluateProduct(p);
+    return { ...p, ev };
+  });
+
+  // group by tab
+  const inTab = evaluated.filter(x => x.ev.group === activeTab);
+
+  // sort
+  inTab.sort((a,b)=>{
+    if (sortBy === "price_asc") return a.price - b.price;
+    if (sortBy === "price_desc") return b.price - a.price;
+    if (sortBy === "name_asc") return a.name.localeCompare(b.name);
+    // rank: higher rankScore first, tie: lower price
+    return (b.ev.rankScore - a.ev.rankScore) || (a.price - b.price);
+  });
+
+  if (inTab.length === 0){
+    const empty = document.createElement("div");
+    empty.className = "small";
+    empty.style.gridColumn = "1 / -1";
+    empty.textContent = "ไม่พบรายการในเงื่อนไขนี้ (ลองเปลี่ยนแท็บ/brand/search)";
+    list.appendChild(empty);
+    return;
+  }
+
+  inTab.forEach(p=>{
+    const card = document.createElement("div");
+    const isSel = selected[activeCategory] && selected[activeCategory].id === p.id;
+    card.className = "card" + (isSel ? " selected" : "");
+
+    const badge = (p.ev.group === "recommended") ? `<span class="tag good">⭐ แนะนำ</span>`
+                : (p.ev.group === "ok") ? `<span class="tag">👍 ใช้ได้</span>`
+                : `<span class="tag bad">⚠️ ใส่ไม่ได้</span>`;
+
+    card.innerHTML = `
+      <h3>${escapeHtml(p.name)}</h3>
+      <div class="meta">
+        <span class="tag">${escapeHtml(p.brand)}</span>
+        ${badge}
+      </div>
+      <div class="specrow">${renderMiniSpecs(p)}</div>
+      <div class="reason">${escapeHtml(p.ev.reasons.slice(0,2).join(" • "))}</div>
+      <div class="price">
+        <span>AI score: <strong>${p.ev.rankScore.toFixed(1)}</strong></span>
+        <span>ราคา <strong>${formatPrice(p.price)} ฿</strong></span>
+      </div>
+    `;
+
+    card.onclick = ()=>{
+      if (p.ev.group === "no"){
+        toast("เลือกไม่ได้", "รายการนี้ไม่เข้ากันกับสิ่งที่เลือกไว้ (ดูเหตุผลบนการ์ด)");
+        return;
+      }
+      selected[activeCategory] = {
+        id:p.id, category:p.category, brand:p.brand, name:p.name, price:p.price, spec:p.spec
+      };
+      toast("เพิ่มเข้า Comset แล้ว", `${activeCategory}: ${p.brand} • ${p.name}`);
+      renderAll();
+    };
+
+    list.appendChild(card);
+  });
+}
+
+function renderMiniSpecs(p){
+  // show a few key specs per category
+  const c = p.category;
+  const s = p.spec || {};
+  const chips = [];
+  if (c === "VGA"){
+    if (s.length_mm) chips.push(`Length ${s.length_mm}mm`);
+    if (s.vram) chips.push(`${s.vram}GB`);
+    if (s.psu_w_min) chips.push(`PSU ≥ ${s.psu_w_min}W`);
+  }
+  if (c === "CPU"){
+    if (s.platform) chips.push(s.platform);
+    if (s.tdp_w) chips.push(`TDP ${s.tdp_w}W`);
+  }
+  if (c === "MAINBOARD"){
+    if (s.platform) chips.push(s.platform);
+    if (s.formFactor) chips.push(s.formFactor);
+    if (s.ramType) chips.push(s.ramType);
+  }
+  if (c === "RAM"){
+    if (s.sizeGB) chips.push(`${s.sizeGB}GB`);
+    if (s.ramType) chips.push(s.ramType);
+    if (s.speed) chips.push(`${s.speed}MHz`);
+  }
+  if (c === "SSD"){
+    if (s.type) chips.push(s.type);
+    if (s.gen) chips.push(s.gen);
+    if (s.sizeGB) chips.push(`${s.sizeGB}GB`);
+  }
+  if (c === "PSU"){
+    if (s.watt) chips.push(`${s.watt}W`);
+    if (s.rating) chips.push(`80+ ${s.rating}`);
+    if (s.pcie16pin) chips.push(`16-pin x${s.pcie16pin}`);
+  }
+  if (c === "CASE"){
+    if (s.maxVgaMm) chips.push(`Max VGA ${s.maxVgaMm}mm`);
+    if (s.supports) chips.push(s.supports.join("/"));
+  }
+  if (c === "COOLING"){
+    if (s.type) chips.push(s.type);
+    if (s.heightMm) chips.push(`H ${s.heightMm}mm`);
+    if (s.radMm) chips.push(`RAD ${s.radMm}mm`);
+  }
+  if (c === "MONITOR"){
+    if (s.sizeInch) chips.push(`${s.sizeInch}"`);
+    if (s.res) chips.push(s.res);
+    if (s.hz) chips.push(`${s.hz}Hz`);
+  }
+  return chips.slice(0,3).map(x=>`<span>${escapeHtml(x)}</span>`).join("");
+}
+
+function renderAI(){
+  const count = getSelectedCount();
+  const full = count === REQUIRED_KEYS.length;
+
+  document.getElementById("aiModeTag").textContent = full ? "Full" : "Partial";
+  document.getElementById("aiModeTag").className = "tag " + (full ? "good" : "warn");
+  document.getElementById("aiStatusTag").textContent = full ? "เลือกครบแล้ว" : `เลือกแล้ว ${count}/${REQUIRED_KEYS.length}`;
+
+  const msg = buildAIMessage(full);
+  document.getElementById("aiMessage").textContent = msg;
+}
+
+function buildAIMessage(full){
+  // Prototype AI message — ในระบบจริง: เรียก AI model + มี scoring จาก data จริง
+  const s = selected;
+  const lines = [];
+
+  if (!full){
+    lines.push("✨ ยังไม่สามารถสรุปทั้งเครื่องได้ (ยังเลือกไม่ครบ)");
+    lines.push("");
+
+    if (s.VGA){
+      lines.push(`• VGA ที่เลือก: ${s.VGA.brand} — ${s.VGA.name}`);
+      lines.push(`  - ระดับกราฟิกโดยรวม: Tier ${s.VGA.spec.gpuTier || "-"} | VRAM ${s.VGA.spec.vram || "-"}GB`);
+      lines.push(`  - แนะนำ PSU อย่างน้อย: ${s.VGA.spec.psu_w_min || "-"}W`);
+    } else {
+      lines.push("• แนะนำเริ่มจากเลือก VGA ก่อน หากเป้าหมายคือ Gaming");
+    }
+
+    if (s.CPU && s.MAINBOARD){
+      lines.push("");
+      lines.push("• CPU + Mainboard: Platform ตรงกันแล้ว ✅");
+      lines.push("  - ต่อไปแนะนำเลือก RAM (ให้ตรง DDR) และ Cooling");
+    } else if (s.CPU && !s.MAINBOARD){
+      lines.push("");
+      lines.push(`• CPU ที่เลือก: ${s.CPU.name} (${s.CPU.spec.platform})`);
+      lines.push("  - ต่อไปแนะนำเลือก Mainboard ที่ Platform ตรงกัน");
+    } else if (!s.CPU && s.MAINBOARD){
+      lines.push("");
+      lines.push(`• Mainboard ที่เลือก: ${s.MAINBOARD.name} (${s.MAINBOARD.spec.platform})`);
+      lines.push("  - ต่อไปแนะนำเลือก CPU ที่ Platform ตรงกัน");
+    }
+
+    if (s.CASE && !s.COOLING){
+      lines.push("");
+      lines.push("• เลือกเคสแล้ว → ต่อไปแนะนำเลือก Cooling ให้พอดี (เช็คความสูง/หม้อน้ำ)");
+    }
+
+    lines.push("");
+    lines.push("👉 เลือกเพิ่มอีก 1–2 ชิ้น ระบบจะเริ่มประเมิน Balance ได้ละเอียดขึ้น");
+    return lines.join("\n");
+  }
+
+  // Full evaluation (prototype)
+  const score = computeFullScore();
+  lines.push(`⭐ AI Final Evaluation (Prototype)`);
+  lines.push(`Performance Score: ${score.total.toFixed(1)} / 10`);
+  lines.push("");
+
+  lines.push(`• Gaming Target: ${score.gameTarget}`);
+  lines.push(`• Balance: ${score.balanceText}`);
+  lines.push(`• PSU Headroom: ${score.headroomText}`);
+  lines.push(`• Thermal: ${score.thermalText}`);
+
+  lines.push("");
+  lines.push("สรุป:");
+  lines.push(score.summary);
+
+  return lines.join("\n");
+}
+
+function computeFullScore(){
+  const s = selected;
+
+  // Simple scoring (for demo)
+  let total = 7.0;
+
+  // Balance: CPU tier vs GPU tier
+  const gt = s.VGA.spec.gpuTier || 1;
+  const ct = s.CPU.spec.cpuTier || 1;
+
+  let balanceText = "ดี";
+  if (ct + 1 < gt){ total -= 1.0; balanceText = "เสี่ยง CPU bottleneck ในบางงาน"; }
+  if (ct >= gt){ total += 0.3; balanceText = "บาลานซ์ดี"; }
+
+  // PSU headroom
+  const minW = s.VGA.spec.psu_w_min || 0;
+  const psuW = s.PSU.spec.watt || 0;
+  const headroom = psuW - minW;
+  let headroomText = `${headroom}W`;
+  if (headroom < 80) { total -= 0.6; headroomText += " (น้อย)"; }
+  else if (headroom >= 150) { total += 0.4; headroomText += " (ดี)"; }
+
+  // Thermal: cooling type + case vga clearance as proxy
+  let thermalText = "ปกติ";
+  if (s.COOLING.spec.type === "LIQUID") { total += 0.3; thermalText = "ดี (AIO)"; }
+  if (s.COOLING.spec.type === "AIR") { total += 0.1; thermalText = "ดี (Air)"; }
+  if (s.COOLING.spec.type === "FAN") { total -= 0.2; thermalText = "ยังไม่ชัด (เป็นพัดลมเสริม)"; }
+
+  // Monitor target
+  let gameTarget = "1080p";
+  const res = s.MONITOR.spec.res;
+  if (res === "1440p") gameTarget = "1440p";
+  if (res === "4K") gameTarget = "4K";
+
+  // Clamp score
+  total = Math.max(1, Math.min(10, total));
+
+  const summary = `ชุดนี้เน้นความสมดุลโดยรวม เลือกครบแล้วและไม่มีข้อขัดแย้งหลัก ๆ ในการประกอบ (Prototype)`;
+
+  return { total, gameTarget, balanceText, headroomText, thermalText, summary };
+}
+
+function renderAll(){
+  renderSummary();
+  renderTabs();
+  renderProducts();
+  renderAI();
+}
+
+/* =========================
+   Events
+========================= */
+
+document.getElementById("searchBox").addEventListener("input", (e)=>{
+  searchText = e.target.value || "";
+  renderProducts();
+});
+document.getElementById("brandFilter").addEventListener("change", (e)=>{
+  brandFilter = e.target.value;
+  renderProducts();
+});
+document.getElementById("sortBy").addEventListener("change", (e)=>{
+  sortBy = e.target.value;
+  renderProducts();
+});
+document.getElementById("tabs").addEventListener("click", (e)=>{
+  const tab = e.target.closest(".tab");
+  if (!tab) return;
+  activeTab = tab.getAttribute("data-tab");
+  renderAll();
+});
+
+document.getElementById("btnReset").addEventListener("click", ()=>{
+  REQUIRED_KEYS.forEach(k => selected[k] = null);
+  renderAll();
+  toast("ล้าง Comset แล้ว", "เริ่มเลือกใหม่ได้เลย");
+});
+
+document.getElementById("btnExport").addEventListener("click", async ()=>{
+  const lines = [];
+  lines.push("Ascenti Comset Summary");
+  lines.push("----------------------");
+  REQUIRED_KEYS.forEach(k=>{
+    if (!selected[k]) lines.push(`${k}: (not selected)`);
+    else lines.push(`${k}: ${selected[k].brand} - ${selected[k].name} (${formatPrice(selected[k].price)} ฿)`);
+  });
+  const total = REQUIRED_KEYS.reduce((sum,k)=> sum + (selected[k]?.price || 0), 0);
+  lines.push("----------------------");
+  lines.push(`Total (items only): ${formatPrice(total)} ฿`);
+  const text = lines.join("\n");
+  try{
+    await navigator.clipboard.writeText(text);
+    toast("คัดลอกแล้ว", "สรุป Comset ถูกคัดลอกลง clipboard");
+  }catch(err){
+    toast("คัดลอกไม่สำเร็จ", "เบราว์เซอร์ไม่อนุญาต clipboard ในบางกรณี");
+  }
+});
+
+document.getElementById("btnAutoSuggest").addEventListener("click", ()=>{
+  // Demo: auto pick a balanced set quickly
+  pickById("vga-2");
+  pickById("cpu-3");
+  pickById("mb-3");
+  pickById("ram-1");
+  pickById("ssd-1");
+  pickById("psu-2");
+  pickById("case-1");
+  pickById("cool-2");
+  pickById("mon-1");
+  renderAll();
+  toast("AI แนะนำชุดเริ่มต้น", "ใส่ชุดตัวอย่างแบบบาลานซ์ (ปรับได้ทุกชิ้น)");
+});
+
+function pickById(id){
+  const p = PRODUCTS.find(x=>x.id===id);
+  if (!p) return;
+  selected[p.category] = { id:p.id, category:p.category, brand:p.brand, name:p.name, price:p.price, spec:p.spec };
+}
+
+/* =========================
+   Utils
+========================= */
+function shorten(s, n){
+  s = String(s || "");
+  return (s.length > n) ? s.slice(0, n-1) + "…" : s;
+}
+function escapeHtml(str){
+  return String(str || "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+/* =========================
+   Init
+========================= */
+(function init(){
+  renderCategories();
+  setupBrandFilter();
+  renderAll();
+})();
+</script>
+</body>
+</html>
