@@ -1,3 +1,4 @@
+```mermaid
 flowchart LR
 
   U[ผู้ใช้งาน<br/>ลูกค้า / ฝ่ายขาย]
