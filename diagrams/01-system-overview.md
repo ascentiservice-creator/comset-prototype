@@ -1,6 +1,3 @@
-
-# System Overview – Ascenti Comset
-
 ```mermaid
 flowchart LR
   U[User / Dealer] --> FE[Comset Web UI<br/>(GitHub Pages)]
