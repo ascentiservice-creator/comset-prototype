@@ -1,3 +1,59 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>My Comsets • Ascenti</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{margin:0;background:#0b1020;color:#e6edf7;font-family:system-ui}
+.wrap{max-width:1200px;margin:auto;padding:24px}
+h1{margin-top:0}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:14px;border-bottom:1px solid rgba(255,255,255,.12);vertical-align:top}
+th{color:#94a3b8;font-weight:600;text-align:left}
+small{color:#94a3b8}
+.tag{
+  display:inline-block;
+  padding:3px 10px;
+  border-radius:999px;
+  font-size:12px;
+  margin-right:6px;
+}
+.gaming{background:#2563eb}
+.office{background:#475569}
+.promo{background:#16a34a}
+.status{
+  font-weight:600;
+}
+.sent{color:#fbbf24}
+.quoted{color:#34d399}
+.draft{color:#94a3b8}
+.navbar{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 22px;
+  background:rgba(15,23,51,.9);
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+.navbar a{color:#e6edf7;text-decoration:none;margin-left:14px}
+.navbar a:hover{color:#60a5fa}
+a{color:#60a5fa;text-decoration:none}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+  <strong>Ascenti Comset</strong>
+  <div>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="index.html">Builder</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<h1>🧩 My Comsets</h1>
+
 <table>
 <thead>
 <tr>
@@ -5,47 +61,52 @@
   <th>Total (SDP)</th>
   <th>Sales</th>
   <th>Status</th>
-  <th>Action</th>
+  <th></th>
 </tr>
 </thead>
+
 <tbody>
 
 <tr>
-  <td>Gaming RTX 5060</td>
+  <td>
+    <b>Antec-RTX5080-i7-Air-78000</b><br>
+    <small>Case: Antec | GPU: RTX 5080 | CPU: i7</small><br>
+    <span class="tag gaming">Gaming</span>
+    <span class="tag promo">Promo</span>
+  </td>
   <td>78,500 ฿</td>
   <td>สมชาย</td>
-  <td>
-    <span style="color:#fbbf24">● Sent to Sales</span>
-  </td>
-  <td>
-    <a href="comset-detail.html">View</a> |
-    <a href="#">Edit</a>
-  </td>
+  <td class="status sent">● Sent to Sales</td>
+  <td><a href="comset-detail.html">View</a></td>
 </tr>
 
 <tr>
-  <td>Workstation Ryzen</td>
-  <td>96,200 ฿</td>
-  <td>วิรัช</td>
   <td>
-    <span style="color:#34d399">● Quoted</span>
+    <b>Montech-VGAOnboard-i3-Liquid-45000</b><br>
+    <small>Case: Montech | GPU: Onboard | CPU: i3</small><br>
+    <span class="tag office">Office</span>
   </td>
-  <td>
-    <a href="comset-detail.html">View</a>
-  </td>
-</tr>
-
-<tr>
-  <td>Office Set</td>
-  <td>42,000 ฿</td>
+  <td>42,300 ฿</td>
   <td>-</td>
+  <td class="status draft">● Draft</td>
+  <td><a href="index.html">Edit</a></td>
+</tr>
+
+<tr>
   <td>
-    <span style="color:#94a3b8">● Draft</span>
+    <b>Thermaltake-RX9060XT-i9-69000</b><br>
+    <small>Case: Thermaltake | GPU: RX 9060 XT | CPU: i9</small><br>
+    <span class="tag gaming">Gaming</span>
   </td>
-  <td>
-    <a href="index.html">Edit</a>
-  </td>
+  <td>69,200 ฿</td>
+  <td>วิรัช</td>
+  <td class="status quoted">● Quoted</td>
+  <td><a href="comset-detail.html">View</a></td>
 </tr>
 
 </tbody>
 </table>
+
+</div>
+</body>
+</html>
