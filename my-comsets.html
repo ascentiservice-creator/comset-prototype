@@ -4,34 +4,58 @@
 <meta charset="UTF-8">
 <title>My Comsets</title>
 <style>
-body{background:#070a14;color:#e6edf7;font-family:system-ui}
-.wrap{max-width:1000px;margin:auto;padding:40px}
-.row{
-  background:#0f1733;
-  padding:14px;
-  border-radius:14px;
-  margin-bottom:10px;
-}
-a{color:#60a5fa}
+body{margin:0;background:#0b1020;color:#e6edf7;font-family:system-ui}
+table{width:100%;border-collapse:collapse}
+th,td{padding:12px;border-bottom:1px dashed rgba(255,255,255,.15)}
+th{color:#94a3b8;text-align:left}
+.wrap{max-width:1100px;margin:auto;padding:24px}
+a{color:#60a5fa;text-decoration:none}
 </style>
 </head>
 <body>
 
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-left"><strong>Ascenti Comset</strong></div>
+  <div class="nav-right">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="index.html">Builder</a>
+    <a href="my-comsets.html">My Comsets</a>
+    <a href="about.html">AI Concept</a>
+    <a href="login.html" class="logout">Logout</a>
+  </div>
+</nav>
+
 <div class="wrap">
-  <h1>📁 My Comsets</h1>
+<h1>📁 My Comsets</h1>
 
-  <div class="row">
-    <b>Gaming Set RTX 5060</b><br>
-    Total: 78,900 ฿<br>
-    <a href="comset-detail.html">ดูรายละเอียด</a>
-  </div>
-
-  <div class="row">
-    <b>Workstation Ryzen</b><br>
-    Total: 95,000 ฿<br>
-    <a href="comset-detail.html">ดูรายละเอียด</a>
-  </div>
-
+<table>
+<thead>
+<tr>
+  <th>Date</th>
+  <th>Purpose</th>
+  <th>Total (SDP)</th>
+  <th>Status</th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>16/12/2025</td>
+  <td>Gaming 1440p</td>
+  <td>78,500 ฿</td>
+  <td>Draft</td>
+  <td><a href="comset-detail.html">View</a></td>
+</tr>
+<tr>
+  <td>10/12/2025</td>
+  <td>Workstation</td>
+  <td>96,200 ฿</td>
+  <td>Sent to Sales</td>
+  <td><a href="comset-detail.html">View</a></td>
+</tr>
+</tbody>
+</table>
 </div>
 
 </body>
