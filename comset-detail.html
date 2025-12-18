@@ -4,42 +4,54 @@
 <meta charset="UTF-8">
 <title>Comset Detail</title>
 <style>
-body{background:#070a14;color:#e6edf7;font-family:system-ui}
-.wrap{max-width:900px;margin:auto;padding:40px}
+body{margin:0;background:#0b1020;color:#e6edf7;font-family:system-ui}
+.wrap{max-width:900px;margin:auto;padding:24px}
 .card{
-  background:#0f1733;
-  padding:20px;
-  border-radius:16px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:18px;padding:20px;
 }
 button{
-  margin-top:20px;
-  padding:12px;
-  border-radius:10px;
-  border:none;
-  background:#16a34a;
-  color:white;
+  margin-top:14px;padding:10px 16px;
+  border-radius:999px;border:none;
+  background:#22c55e;color:#022c22;font-weight:600;
 }
+a{color:#60a5fa}
 </style>
 </head>
 <body>
 
-<div class="wrap">
-  <h1>🧾 Comset Detail</h1>
-
-  <div class="card">
-    VGA: GALAX RTX 5060<br>
-    CPU: Intel Core i5<br>
-    RAM: ADATA 32GB<br>
-    SSD: Samsung 1TB<br>
-    PSU: Super Flower 750W<br>
-    <hr>
-    <b>Total (SDP): 75,000 ฿</b><br>
-    <b>Total (SRP): 82,900 ฿</b>
-
-    <button>
-      📤 ส่งสเปคให้ฝ่ายขาย
-    </button>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-left"><strong>Ascenti Comset</strong></div>
+  <div class="nav-right">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="index.html">Builder</a>
+    <a href="my-comsets.html">My Comsets</a>
+    <a href="about.html">AI Concept</a>
+    <a href="login.html" class="logout">Logout</a>
   </div>
+</nav>
+
+<div class="wrap">
+<h1>🧾 Comset Detail</h1>
+
+<div class="card">
+<p>VGA: GALAX RTX 5060 EX WHITE</p>
+<p>CPU: Intel Core i5-14400F</p>
+<p>Mainboard: ASUS B760M</p>
+<p>RAM: ADATA DDR5 32GB</p>
+<p>SSD: Samsung NVMe 1TB</p>
+<p>PSU: Super Flower 750W Gold</p>
+
+<hr>
+
+<p><strong>Total (SDP): 78,500 ฿</strong></p>
+<p><strong>Total (SRP): 86,900 ฿</strong></p>
+
+<button>📤 ส่งให้ฝ่ายขาย</button><br><br>
+<a href="share.html">🔗 แชร์สเปคให้ลูกค้า</a>
+</div>
 </div>
 
 </body>
