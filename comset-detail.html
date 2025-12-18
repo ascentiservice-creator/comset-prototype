@@ -2,70 +2,159 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>Comset Detail</title>
+<title>Comset Detail • Ascenti</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body{margin:0;background:#0b1020;color:#e6edf7;font-family:system-ui}
-.wrap{max-width:900px;margin:auto;padding:24px}
-.card{
+body{
+  margin:0;background:#0b1020;color:#e6edf7;font-family:system-ui
+}
+.wrap{max-width:1200px;margin:auto;padding:24px}
+h1{margin-top:0}
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:14px;
+}
+th,td{
+  padding:12px;
+  border-bottom:1px solid rgba(255,255,255,.12);
+  text-align:left;
+  vertical-align:middle;
+}
+th{color:#94a3b8;font-weight:600}
+tr:hover{background:rgba(255,255,255,.03)}
+.promo{color:#34d399;font-weight:600}
+.muted{color:#94a3b8}
+.summary{
+  margin-top:20px;
+  padding:16px;
+  border-radius:16px;
   background:rgba(255,255,255,.06);
   border:1px solid rgba(255,255,255,.12);
-  border-radius:18px;padding:20px;
 }
-button{
-  margin-top:14px;padding:10px 16px;
-  border-radius:999px;border:none;
-  background:#22c55e;color:#022c22;font-weight:600;
-}
-a{color:#60a5fa}
 .navbar{
   display:flex;justify-content:space-between;align-items:center;
   padding:14px 22px;
   background:rgba(15,23,51,.9);
   border-bottom:1px solid rgba(255,255,255,.12);
 }
-.navbar a{
-  color:#e6edf7;text-decoration:none;
-  margin-left:14px;font-size:14px;
-}
+.navbar a{color:#e6edf7;text-decoration:none;margin-left:14px}
 .navbar a:hover{color:#60a5fa}
-.logout{color:#fb7185}
-
+.btn{
+  display:inline-block;
+  margin-top:14px;
+  padding:10px 18px;
+  border-radius:999px;
+  background:#22c55e;
+  color:#022c22;
+  font-weight:700;
+  text-decoration:none;
+}
 </style>
 </head>
+
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar">
-  <div class="nav-left"><strong>Ascenti Comset</strong></div>
-  <div class="nav-right">
+  <strong>Ascenti Comset</strong>
+  <div>
     <a href="dashboard.html">Dashboard</a>
-    <a href="index.html">Builder</a>
     <a href="my-comsets.html">My Comsets</a>
-    <a href="about.html">AI Concept</a>
-    <a href="login.html" class="logout">Logout</a>
   </div>
 </nav>
 
 <div class="wrap">
-<h1>🧾 Comset Detail</h1>
 
-<div class="card">
-<p>VGA: GALAX RTX 5060 EX WHITE</p>
-<p>CPU: Intel Core i5-14400F</p>
-<p>Mainboard: ASUS B760M</p>
-<p>RAM: ADATA DDR5 32GB</p>
-<p>SSD: Samsung NVMe 1TB</p>
-<p>PSU: Super Flower 750W Gold</p>
+<h1>🧾 Antec-RTX5080-i7-Air-78000</h1>
+<p class="muted">Comset สำหรับ Gaming 1440p • Dealer: ABC Computer</p>
 
-<hr>
+<table>
+<thead>
+<tr>
+  <th>Category</th>
+  <th>Product</th>
+  <th>SDP</th>
+  <th>SDP Promo</th>
+  <th>SRP</th>
+  <th>SRP Promo</th>
+</tr>
+</thead>
+<tbody>
 
-<p><strong>Total (SDP): 78,500 ฿</strong></p>
-<p><strong>Total (SRP): 86,900 ฿</strong></p>
+<tr>
+  <td>Case</td>
+  <td>ANTEC Airflow ATX</td>
+  <td>1,850</td>
+  <td class="muted">-</td>
+  <td>2,190</td>
+  <td class="muted">-</td>
+</tr>
 
-<button>📤 ส่งให้ฝ่ายขาย</button><br><br>
-<a href="share.html">🔗 แชร์สเปคให้ลูกค้า</a>
+<tr>
+  <td>VGA</td>
+  <td>GALAX RTX 5080 EX</td>
+  <td>25,900</td>
+  <td class="promo">24,500 🔥</td>
+  <td>27,900</td>
+  <td class="promo">26,900</td>
+</tr>
+
+<tr>
+  <td>CPU</td>
+  <td>Intel Core i7-14700F</td>
+  <td>12,500</td>
+  <td class="muted">-</td>
+  <td>13,900</td>
+  <td class="muted">-</td>
+</tr>
+
+<tr>
+  <td>Cooling</td>
+  <td>Thermaltake Air Tower</td>
+  <td>990</td>
+  <td class="muted">-</td>
+  <td>1,290</td>
+  <td class="muted">-</td>
+</tr>
+
+<tr>
+  <td>RAM</td>
+  <td>ADATA DDR5 32GB</td>
+  <td>3,290</td>
+  <td class="promo">2,990</td>
+  <td>3,890</td>
+  <td class="muted">-</td>
+</tr>
+
+<tr>
+  <td>SSD</td>
+  <td>SAMSUNG NVMe 1TB</td>
+  <td>2,790</td>
+  <td class="muted">-</td>
+  <td>3,290</td>
+  <td class="muted">-</td>
+</tr>
+
+<tr>
+  <td>PSU</td>
+  <td>SUPER FLOWER 750W Gold</td>
+  <td>3,990</td>
+  <td class="muted">-</td>
+  <td>4,590</td>
+  <td class="muted">-</td>
+</tr>
+
+</tbody>
+</table>
+
+<div class="summary">
+  <p><b>รวมราคา SDP:</b> 78,500 ฿</p>
+  <p><b>รวมราคา SRP:</b> 86,900 ฿</p>
+  <p class="promo"><b>ประหยัดจากโปร:</b> 2,400 ฿</p>
+
+  <a class="btn" href="#">📤 ส่ง Comset ให้ฝ่ายขาย</a>
 </div>
-</div>
 
+</div>
 </body>
 </html>
