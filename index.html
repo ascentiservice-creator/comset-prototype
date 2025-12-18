@@ -421,10 +421,37 @@
     }
     .toast strong{ display:block; margin-bottom: 4px; font-size: 13px; }
     .toast p{ margin:0; color: var(--muted); font-size: 12px; line-height: 1.4; }
+
+  .navbar{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 22px;
+  background:rgba(15,23,51,.9);
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+.navbar a{
+  color:#e6edf7;text-decoration:none;
+  margin-left:14px;font-size:14px;
+}
+.navbar a:hover{color:#60a5fa}
+.logout{color:#fb7185}
+
   </style>
 </head>
 
 <body>
+<nav class="navbar">
+  <div class="nav-left">
+    <strong>Ascenti Comset</strong>
+  </div>
+  <div class="nav-right">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="index.html">Builder</a>
+    <a href="my-comsets.html">My Comsets</a>
+    <a href="about.html">AI Concept</a>
+    <a href="login.html" class="logout">Logout</a>
+  </div>
+</nav>
+
   <div class="topbar">
     <div class="topbar-inner">
       <div class="brand">
