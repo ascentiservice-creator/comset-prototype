@@ -1,3 +1,5 @@
+https://ascentiservice-creator.github.io/comset-prototype/
+
 📊 Ascenti Comset – System Diagrams
 
 เอกสารนี้เป็น ศูนย์รวม Diagram ทั้งหมดของระบบ Ascenti Comset
